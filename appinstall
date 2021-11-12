@@ -1,0 +1,186 @@
+#!/usr/bin/python3
+
+# GUI for install third party application by epm play
+# (c) 2021 Andrey Cherepanov <cas@altlinux.org>
+
+# This program is free software; you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation; either version 3 of the License, or (at your option) any later
+# version.                                 
+                                                                    
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.                        
+                                                                    
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+# Place - Suite 330, Boston, MA  02111-1307, USA.           
+
+from PyQt5 import QtCore, QtWidgets, uic
+import locale
+import sys
+import subprocess
+import re
+
+data_dir = "/usr/share/appinstall"
+
+class Ui(QtWidgets.QWidget):
+    list = {}
+    installed = {}
+    proc = None
+    unprocessed_string = ''
+
+    def __init__(self):
+        super(Ui, self).__init__() # Call the inherited classes __init__ method
+
+        # Load UI from file
+        uic.loadUi('appinstall.ui', self) # Load the .ui file
+
+        # Fill applications list
+        self.getApplications()
+
+        # UI tuning
+        self.apps.headerItem().setText(0, "")
+        self.apps.setColumnWidth(0, 16)
+        
+        # Hide filterList (is not implemented) and details
+        self.filterList.hide()
+        self.details.hide()
+        
+        # Set slots for signals
+        self.apps.currentItemChanged.connect( self.onSelectionChange )
+        self.actionButton.clicked.connect( self.onInstall )
+        self.closeButton.clicked.connect( self.onClose )
+
+        # Show window
+        self.show()
+
+    def getApplicationsInstalled(self):
+        """Get installed application from epm play --installed"""
+        out = subprocess.Popen( [ "epm", "play", "--installed" ], stdout=subprocess.PIPE)
+        for l in out.stdout.readlines():
+            d = re.match( "  (\S+)\s+- (.*)", l.decode().rstrip() )
+            if d:
+                #print( d.group(1) )
+                self.installed[ d.group(1) ] = True
+        #print("Installed:", self.installed.keys() )
+
+    def getApplications(self):
+        """Get application list from epm play"""
+        self.getApplicationsInstalled()
+        out = subprocess.Popen( [ "epm", "play", "--list-all" ], stdout=subprocess.PIPE)
+        for l in out.stdout.readlines():
+            d = re.match( "  (\S+)\s+- (.*)", l.decode().rstrip() )
+            if d:
+                #print( d.group(1), d.group(2) )
+                name = d.group(1)
+                self.list[ name ] = [ name in self.installed, self.tr( d.group( 2 ) ) ]
+        # Dump
+        names = list( self.list.keys() )
+        if len( names ) == 0:
+            return
+        names.sort()
+        for i in names:
+            #print( i, self.list[ i ][1] )
+            child = QtWidgets.QTreeWidgetItem( self.apps )
+            if self.list[ i ][0]:
+                child.setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
+                child.setData( 0, 3, True )
+            else:
+                child.setData( 0, 3, False )
+            child.setText( 1, i )
+            child.setText( 2, QtWidgets.QApplication.translate( "appinstall", self.list[i][1] ) )
+            
+    def onSelectionChange(self, current, previous):
+        """Slot for change selection"""
+        if current and current.data( 0, 3 ):
+            # Already installed
+            self.actionButton.setText( QtWidgets.QApplication.translate( "appinstall", "&Uninstall" ) )
+        else:
+            # Not installed
+            self.actionButton.setText( QtWidgets.QApplication.translate( "MainWindow", "&Install" ) )
+
+    def onInstall(self):
+        """Slot for Install button press"""
+        selected = self.apps.selectedItems()
+        if selected:
+            app = selected[0].text( 1 )
+            installed = selected[0].data( 0, 3 )
+            #print("onInstall:", app, installed )
+            self.details.show()
+            self.details.clear()
+            self.details.appendPlainText( QtWidgets.QApplication.translate( "appinstall", 'Install %s...' ) % ( app ) )
+            
+            # Perform action
+            action = [ 'play' ]
+            if installed:
+                action.append( '--remove' )
+            if self.proc:
+                self.proc.kill()
+            action.append( app )
+            #print(action)
+
+            # Show buzy cursor
+            QtWidgets.QApplication.setOverrideCursor( QtCore.Qt.WaitCursor )
+
+            self.proc = QtCore.QProcess()
+            self.proc.finished.connect( self.onProcessFinish )
+            self.proc.readyReadStandardOutput.connect( self.onProcessStdout )
+            self.proc.readyReadStandardError.connect( self.onProcessStderr )
+            self.proc.start( 'epm', action )
+            
+    def onProcessStdout(self):
+        """Main process stdout handle"""
+        data = self.proc.readAllStandardOutput()
+        self.writeDetail( bytes(data).decode("utf8") )
+        
+    def onProcessStderr(self):
+        """Main process stderr handle"""
+        data = self.proc.readAllStandardError()
+        self.writeDetail( bytes(data).decode("utf8") )
+        
+    def writeDetail( self, s ):
+        """Write part of raw output to detail pane"""
+        s = self.unprocessed_string + s
+        a = s.split( '\n' )
+        self.unprocessed_string = a.pop(-1)
+        for line in a:
+            self.details.appendPlainText( line )
+               
+    def onProcessFinish(self):
+        """On main process finish"""
+        QtWidgets.QApplication.restoreOverrideCursor()
+        if self.unprocessed_string:
+            self.details.appendPlainText( self.unprocessed_string )
+        selected = self.apps.selectedItems()
+        if selected and self.proc.exitCode() == 0:
+            # On successful finish update tick with application
+            if installed:
+                selected[0].setIcon( 0, None )
+            else:
+                selected[0].setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
+            self.onSelectionChange( selected, None )
+        self.proc = None
+    
+    def onClose(self):
+        """Stop installation process and close window"""
+        if self.proc:
+            self.proc.kill()
+        self.close()
+
+# Chdir to data_dir
+os.chdir( data_dir )
+        
+# Run application
+app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
+
+# Load current locale translation
+translator = QtCore.QTranslator(app)
+tr_file = "ggappinstall_" + locale.getlocale()[0].split( '_' )[0]
+#print( "Load translation from %s.qm" % ( tr_file ) )
+translator.load( tr_file )
+app.installTranslator(translator)
+
+window = Ui() # Create an instance of our class
+app.exec_() # Start the application
