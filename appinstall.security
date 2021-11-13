@@ -1,0 +1,4 @@
+USER=root
+PROGRAM=/usr/sbin/appinstall
+SESSION=true
+FALLBACK=true
