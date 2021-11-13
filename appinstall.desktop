@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=App Install
+GenericName=Install third-party applications
+GenericName[ru]=Установка сторонних приложений
+Comment=Install applications from official sites
+Comment[ru]=Установка приложений с официальных сайтов
+Exec=appinstall
+Icon=appinstall
+Categories=System;PackageManager;
