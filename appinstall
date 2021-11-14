@@ -178,7 +178,7 @@ app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplic
 
 # Load current locale translation
 translator = QtCore.QTranslator(app)
-tr_file = "ggappinstall_" + locale.getlocale()[0].split( '_' )[0]
+tr_file = "appinstall_" + locale.getlocale()[0].split( '_' )[0]
 #print( "Load translation from %s.qm" % ( tr_file ) )
 translator.load( tr_file )
 app.installTranslator(translator)
