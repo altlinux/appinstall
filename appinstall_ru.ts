@@ -48,48 +48,57 @@
     </message>
     <message>
         <location filename="strings.cpp" line="3"/>
-        <source>Install AnyDesk from the official site</source>
-        <translation>Установка AnyDesk с официального сайта</translation>
+        <source>AnyDesk from the official site</source>
+        <oldsource>Install AnyDesk from the official site</oldsource>
+        <translation>AnyDesk с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="4"/>
-        <source>Install Assistant (Ассистент) from the official site</source>
-        <translation>Установка Ассистента с официального сайта</translation>
+        <source>Assistant (Ассистент) from the official site</source>
+        <oldsource>Install Assistant (Ассистент) from the official site</oldsource>
+        <translation>Ассистент с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="5"/>
-        <source>Install Brave browser from the official site</source>
-        <translation>Установка браузера Brave с официального сайта</translation>
+        <source>Brave browser from the official site</source>
+        <oldsource>Install Brave browser from the official site</oldsource>
+        <translation>Браузер Brave с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="6"/>
-        <source>Install The popular and trusted web browser by Google (Stable Channel) from the official site</source>
-        <translation>Установка браузера Google Chrome с официального сайта</translation>
+        <source>The popular and trusted web browser by Google (Stable Channel) from the official site</source>
+        <oldsource>Install The popular and trusted web browser by Google (Stable Channel) from the official site</oldsource>
+        <translation>Браузер Google Chrome с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="7"/>
-        <source>Install Chromium with GOST support from the official site</source>
-        <translation>Установка браузера Chromium-gost с официального сайта</translation>
+        <source>Chromium with GOST support from the official site</source>
+        <oldsource>Install Chromium with GOST support from the official site</oldsource>
+        <translation>Браузер Chromium-gost с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="8"/>
-        <source>Install Visual Studio Code from the official site</source>
-        <translation>Установка Visual Studio Code с официального сайта</translation>
+        <source>Visual Studio Code from the official site</source>
+        <oldsource>Install Visual Studio Code from the official site</oldsource>
+        <translation>Visual Studio Code с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="9"/>
-        <source>Install Discord from the official site</source>
-        <translation>Установка Discord с официального сайта</translation>
+        <source>Discord from the official site</source>
+        <oldsource>Install Discord from the official site</oldsource>
+        <translation>Discord с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="10"/>
-        <source>Install EAGLE (EDA software) from the official site</source>
-        <translation>Установка EAGLE с официального сайта EDA software</translation>
+        <source>EAGLE (EDA software) from the official site</source>
+        <oldsource>Install EAGLE (EDA software) from the official site</oldsource>
+        <translation>EAGLE с официального сайта EDA software</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="11"/>
-        <source>Install Microsoft Edge browser (dev) from the official site</source>
-        <translation>Установка браузера Microsoft Edge с официального сайта</translation>
+        <source>Microsoft Edge browser (dev) from the official site</source>
+        <oldsource>Install Microsoft Edge browser (dev) from the official site</oldsource>
+        <translation>Браузер Microsoft Edge с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="12"/>
@@ -107,105 +116,132 @@
         <translation>Установка glusterfs9 (или обновление с glusterfs8)</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="15"/>
+        <location filename="strings.cpp" line="29"/>
+        <source>Install wine packages</source>
+        <translation>Установить пакеты WINE</translation>
+    </message>
+    <message>
         <source>Fix missed 32 bit package modules on 64 bit system</source>
-        <translation>Установка недостающих 32-битных модулей на 64-битной системе</translation>
+        <translation type="vanished">Установка недостающих 32-битных модулей на 64-битной системе</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="16"/>
         <source>Remove all 32 bit packages from 64 bit system</source>
-        <translation>Удаление всех 32-битных модулей с 64-битной системы</translation>
+        <translation type="vanished">Удаление всех 32-битных модулей с 64-битной системы</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="17"/>
         <source>Install 32 bit wine-etersoft packages on 64 bit system</source>
-        <translation>Установка 32-битных пакетов wine-etersoft на 64-битную систему</translation>
+        <translation type="vanished">Установка 32-битных пакетов wine-etersoft на 64-битную систему</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="18"/>
-        <source>Install 32 bit wine packages on 64 bit system</source>
-        <translation>Установка 32-битных пакетов wine на 64-битную систему</translation>
+        <source>Remove all possible python2 packages</source>
+        <oldsource>Install 32 bit wine packages on 64 bit system</oldsource>
+        <translation>Удаление всех возможных пакетов под python2</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="19"/>
         <source>Install 32 bit wine-vanilla packages on 64 bit system</source>
-        <translation>Установка 32-битных пакетов wine-vanilla на 64-битную систему</translation>
+        <translation type="vanished">Установка 32-битных пакетов wine-vanilla на 64-битную систему</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="20"/>
-        <source>Install ONLYOFFICE for Linux from the official site</source>
-        <translation>Установка ONLYOFFICE с официального сайта</translation>
+        <source>Skype for Linux - Stable/Release Version from the official site</source>
+        <oldsource>Install ONLYOFFICE for Linux from the official site</oldsource>
+        <translation>Skype с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="21"/>
+        <location filename="strings.cpp" line="16"/>
         <source>Install php7 (or upgrade from php5)</source>
         <translation>Установка PHP7 (или обновление с PHP5)</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="22"/>
+        <location filename="strings.cpp" line="15"/>
+        <source>ONLYOFFICE for Linux from the official site</source>
+        <translation>ONLYOFFICE с официального сайта</translation>
+    </message>
+    <message>
+        <location filename="strings.cpp" line="17"/>
         <source>Install php8 (or upgrade from php7)</source>
         <translation>Установка PHP8 (или обновление с PHP7)</translation>
     </message>
     <message>
+        <location filename="strings.cpp" line="19"/>
+        <source>Sferum for Linux from the official site</source>
+        <translation>Сферум с официального сайта</translation>
+    </message>
+    <message>
+        <location filename="strings.cpp" line="21"/>
+        <source>Spotify client for Linux from the official site</source>
+        <translation>Клиент Spotify с официального сайта</translation>
+    </message>
+    <message>
+        <location filename="strings.cpp" line="22"/>
+        <source>Sputnik browser from the official site</source>
+        <translation>Спутник Браузер с официального сайта</translation>
+    </message>
+    <message>
         <location filename="strings.cpp" line="23"/>
-        <source>Remove all possible python2 packages</source>
-        <translation>Удаление всех возможных пакетов Python2</translation>
+        <source>TamTam messenger from the official site</source>
+        <translation>Мессенджер TamTam с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="24"/>
-        <source>Install Skype for Linux - Stable/Release Version from the official site</source>
-        <oldsource>Stable/Release Version from the official site</oldsource>
-        <translation>Установка клиента Skype с официального сайта</translation>
+        <source>Microsoft Teams for Linux from the official site</source>
+        <oldsource>Install Skype for Linux - Stable/Release Version from the official site</oldsource>
+        <translation>Microsoft Teams с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="25"/>
-        <source>Install Spotify client for Linux from the official site</source>
-        <translation>Установка клиента Spotify с официального сайта</translation>
+        <source>Teamviewer from the official site</source>
+        <oldsource>Install Spotify client for Linux from the official site</oldsource>
+        <translation>Teamviewer с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="26"/>
-        <source>Install TamTam messenger from the official site</source>
-        <translation>Установка мессенджера TamTam с официального сайта</translation>
+        <source>Telegram client from the official site</source>
+        <oldsource>Install TamTam messenger from the official site</oldsource>
+        <translation>Клиент Telegram с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="27"/>
-        <source>Install Microsoft Teams for Linux from the official site</source>
-        <translation>Установка Microsft Teams с официального сайта</translation>
+        <source>Viber for Linux from the official site</source>
+        <oldsource>Install Microsoft Teams for Linux from the official site</oldsource>
+        <translation>Клиент Viber с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="28"/>
-        <source>Install Teamviewer from the official site</source>
-        <translation>Установка Teamviewer с официального сайта</translation>
+        <source>Vivaldi browser from the official site</source>
+        <oldsource>Install Teamviewer from the official site</oldsource>
+        <translation>Браузер Vivaldi с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="29"/>
         <source>Install Telegram client from the official site</source>
-        <translation>Установка клиента Telegram с официального сайта</translation>
+        <translation type="vanished">Установка клиента Telegram с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="30"/>
-        <source>Install Viber for Linux from the official site</source>
-        <translation>Установка мессенджера Viber с официального сайта</translation>
+        <source>Yandex browser from the official site</source>
+        <oldsource>Install Viber for Linux from the official site</oldsource>
+        <translation>Яндек Браузер с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="31"/>
-        <source>Install Vivaldi browser from the official site</source>
-        <translation>Установка браузера Vivaldi с официального сайта</translation>
+        <source>Yandex Disk from the official site</source>
+        <oldsource>Install Vivaldi browser from the official site</oldsource>
+        <translation>Клиент Яндекс Диск с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="32"/>
-        <source>Install Yandex browser from the official site</source>
-        <translation>Установка Яндекс Браузера с официального сайта</translation>
+        <source>Zoom client from the official site</source>
+        <oldsource>Install Yandex browser from the official site</oldsource>
+        <translation>Клиент Zoom с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="33"/>
         <source>Install Yandex Disk from the official site</source>
-        <translation>Установка клиента Яндекс Диск с официального сайта</translation>
+        <translation type="vanished">Установка клиента Яндекс Диск с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="34"/>
         <source>Install Zoom client from the official site</source>
-        <translation>Установка клиента Zoom с официального сайта</translation>
+        <translation type="vanished">Установка клиента Zoom с официального сайта</translation>
     </message>
 </context>
 </TS>
