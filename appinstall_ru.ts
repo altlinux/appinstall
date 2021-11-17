@@ -221,7 +221,7 @@
         <location filename="strings.cpp" line="30"/>
         <source>Yandex browser from the official site</source>
         <oldsource>Install Viber for Linux from the official site</oldsource>
-        <translation>Яндек Браузер с официального сайта</translation>
+        <translation>Яндекс Браузер с официального сайта</translation>
     </message>
     <message>
         <location filename="strings.cpp" line="31"/>
