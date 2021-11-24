@@ -17,7 +17,7 @@
 # this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 # Place - Suite 330, Boston, MA  02111-1307, USA.           
 
-from PyQt5 import QtCore, QtWidgets, uic
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import locale
 import os
 import sys
@@ -156,12 +156,14 @@ class Ui(QtWidgets.QWidget):
             self.details.appendPlainText( self.unprocessed_string )
         selected = self.apps.selectedItems()
         if selected and self.proc.exitCode() == 0:
+            installed = selected[0].data( 0, 3 )
             # On successful finish update tick with application
+            selected[0].setData( 0, 3, not installed )
             if installed:
-                selected[0].setIcon( 0, None )
+                selected[0].setIcon( 0, QtGui.QIcon() )
             else:
                 selected[0].setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
-            self.onSelectionChange( selected, None )
+            self.onSelectionChange( selected[0], None )
         self.proc = None
     
     def onClose(self):
