@@ -105,7 +105,7 @@ class Ui(QtWidgets.QWidget):
     def onInstall(self):
         """Slot for Install button press"""
         selected = self.apps.selectedItems()
-        if selected:
+        if selected and self.proc == None:
             app = selected[0].text( 1 )
             installed = selected[0].data( 0, 3 )
             #print("onInstall:", app, installed )
