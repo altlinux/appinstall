@@ -141,12 +141,12 @@ class Ui(QtWidgets.QWidget):
     def onProcessStdout(self):
         """Main process stdout handle"""
         data = self.proc.readAllStandardOutput()
-        self.writeDetail( bytes(data).decode("utf8") )
+        self.writeDetail( bytes(data).decode("utf8", errors='ignore') )
         
     def onProcessStderr(self):
         """Main process stderr handle"""
         data = self.proc.readAllStandardError()
-        self.writeDetail( bytes(data).decode("utf8") )
+        self.writeDetail( bytes(data).decode("utf8", errors='ignore') )
         
     def writeDetail( self, s ):
         """Write part of raw output to detail pane"""
