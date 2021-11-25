@@ -111,7 +111,7 @@ class Ui(QtWidgets.QWidget):
             #print("onInstall:", app, installed )
             
             # Perform action
-            action = [ 'play' ]
+            action = [ 'play', '--auto' ]
             if installed:
                 action_caption = '%s is removing...'
                 action.append( '--remove' )
