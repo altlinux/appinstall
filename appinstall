@@ -109,18 +109,23 @@ class Ui(QtWidgets.QWidget):
             app = selected[0].text( 1 )
             installed = selected[0].data( 0, 3 )
             #print("onInstall:", app, installed )
-            self.details.show()
-            self.details.clear()
-            self.details.appendPlainText( QtWidgets.QApplication.translate( "appinstall", 'Install %s...' ) % ( app ) )
             
             # Perform action
             action = [ 'play' ]
             if installed:
+                action_caption = '%s is removing...'
                 action.append( '--remove' )
+            else:
+                action_caption = '%s is installing...'
             if self.proc:
                 self.proc.kill()
             action.append( app )
             #print(action)
+
+            # Show action
+            self.details.show()
+            self.details.clear()
+            self.details.appendPlainText( QtWidgets.QApplication.translate( "appinstall", action_caption ) % ( app ) )
 
             # Show buzy cursor
             QtWidgets.QApplication.setOverrideCursor( QtCore.Qt.WaitCursor )
@@ -129,6 +134,8 @@ class Ui(QtWidgets.QWidget):
             self.proc.finished.connect( self.onProcessFinish )
             self.proc.readyReadStandardOutput.connect( self.onProcessStdout )
             self.proc.readyReadStandardError.connect( self.onProcessStderr )
+
+            # Start subprocess
             self.proc.start( 'epm', action )
             
     def onProcessStdout(self):

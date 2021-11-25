@@ -1,5 +1,6 @@
 appinstall::tr("&Uninstall");
-appinstall::tr("Install %s...");
+appinstall::tr("%s is removing...");
+appinstall::tr("%s is installing...");
 appinstall::tr("AnyDesk from the official site");
 appinstall::tr("Assistant (Ассистент) from the official site");
 appinstall::tr("Brave browser from the official site");
