@@ -76,6 +76,12 @@ class Ui(QtWidgets.QWidget):
             if d:
                 #print( d.group(1), d.group(2) )
                 name = d.group(1)
+
+                # Hack for wrong exit code of install glusterfs7 (see https://bugzilla.altlinux.org/show_bug.cgi?id=41429)
+                # Exclude glusterfs7 from application list
+                if name == 'glusterfs7':
+                    continue
+
                 self.list[ name ] = [ name in self.installed, self.tr( d.group( 2 ) ) ]
         # Dump
         names = list( self.list.keys() )
