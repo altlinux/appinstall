@@ -127,6 +127,11 @@
         <translation>Установить пакеты WINE</translation>
     </message>
     <message>
+        <location filename="strings.cpp" line="31"/>
+        <source>XnView MP: Image management from the official site</source>
+	<translation>Программа управления изображениями XnView MP с официального сайта</translation>
+    </message>
+    <message>
         <source>Fix missed 32 bit package modules on 64 bit system</source>
         <translation type="vanished">Установка недостающих 32-битных модулей на 64-битной системе</translation>
     </message>
@@ -224,19 +229,19 @@
         <translation type="vanished">Установка клиента Telegram с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="31"/>
+        <location filename="strings.cpp" line="32"/>
         <source>Yandex browser from the official site</source>
         <oldsource>Install Viber for Linux from the official site</oldsource>
         <translation>Яндекс Браузер с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="32"/>
+        <location filename="strings.cpp" line="33"/>
         <source>Yandex Disk from the official site</source>
         <oldsource>Install Vivaldi browser from the official site</oldsource>
         <translation>Клиент Яндекс Диск с официального сайта</translation>
     </message>
     <message>
-        <location filename="strings.cpp" line="33"/>
+        <location filename="strings.cpp" line="34"/>
         <source>Zoom client from the official site</source>
         <oldsource>Install Yandex browser from the official site</oldsource>
         <translation>Клиент Zoom с официального сайта</translation>

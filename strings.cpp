@@ -28,6 +28,7 @@ appinstall::tr("Telegram client from the official site");
 appinstall::tr("Viber for Linux from the official site");
 appinstall::tr("Vivaldi browser from the official site");
 appinstall::tr("Install wine packages");
+appinstall::tr("XnView MP: Image management from the official site");
 appinstall::tr("Yandex browser from the official site");
 appinstall::tr("Yandex Disk from the official site");
 appinstall::tr("Zoom client from the official site");
