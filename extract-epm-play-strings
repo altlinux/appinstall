@@ -1,0 +1,17 @@
+#!/bin/sh
+
+prg="epm"
+
+print_strings() 
+{
+cat << END.
+&Uninstall
+%s is removing...
+%s is installing...
+END.
+
+$prg play | sed -n 's/^.*  - //p'
+
+}
+
+print_strings | sed 's/^/appinstall::tr("/;s/$/");/'
