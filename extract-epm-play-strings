@@ -10,7 +10,7 @@ cat << END.
 %s is installing...
 END.
 
-$prg play | sed -n 's/^.*  - //p'
+$prg play list-all | sed -n 's/^.*  - //p'
 
 }
 
