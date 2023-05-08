@@ -30,7 +30,7 @@ at0 = time.perf_counter()
 
 class Ui(QtWidgets.QWidget):
     list = {}
-    installed = {}
+    installed = []
     proc = None
     unprocessed_string = ''
 
@@ -60,14 +60,10 @@ class Ui(QtWidgets.QWidget):
         self.show()
 
     def getApplicationsInstalled(self):
-        """Get installed application from epm play --installed"""
-        out = subprocess.Popen( [ "epm", "play", "--installed" ], stdout=subprocess.PIPE)
-        for l in out.stdout.readlines():
-            d = re.match( "  (\S+)\s+- (.*)", l.decode().rstrip() )
-            if d:
-                #print( d.group(1) )
-                self.installed[ d.group(1) ] = True
-        #print("Installed:", self.installed.keys() )
+        """Get installed application from epm play --list"""
+        out = subprocess.Popen( [ "epm", "play", "--list", "--short" ], stdout=subprocess.PIPE)
+        self.installed = [ x.decode().rstrip() for x in out.stdout.readlines() ]
+        #print("Installed:", self.installed )
 
     def getApplications(self):
         """Get application list from epm play"""
@@ -96,7 +92,7 @@ class Ui(QtWidgets.QWidget):
         #print("getApplicationsInstalled(): %0.4f" % (t1-t0))
         #print("get all applications: %0.4f" % (t2-t1))
         for i in names:
-            #print( i, self.list[ i ][1] )
+            #print( i, self.list[ i ][0] )
             child = QtWidgets.QTreeWidgetItem( self.apps )
             if self.list[ i ][0]:
                 child.setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
