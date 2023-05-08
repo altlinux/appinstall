@@ -23,8 +23,10 @@ import os
 import sys
 import subprocess
 import re
+import time
 
 data_dir = "/usr/share/appinstall"
+at0 = time.perf_counter()
 
 class Ui(QtWidgets.QWidget):
     list = {}
@@ -69,7 +71,9 @@ class Ui(QtWidgets.QWidget):
 
     def getApplications(self):
         """Get application list from epm play"""
+        t0 = time.perf_counter()
         self.getApplicationsInstalled()
+        t1 = time.perf_counter()
         out = subprocess.Popen( [ "epm", "play", "--list-all" ], stdout=subprocess.PIPE)
         for l in out.stdout.readlines():
             d = re.match( "  (\S+)\s+- (.*)", l.decode().rstrip() )
@@ -88,6 +92,9 @@ class Ui(QtWidgets.QWidget):
         if len( names ) == 0:
             return
         names.sort()
+        t2 = time.perf_counter()
+        #print("getApplicationsInstalled(): %0.4f" % (t1-t0))
+        #print("get all applications: %0.4f" % (t2-t1))
         for i in names:
             #print( i, self.list[ i ][1] )
             child = QtWidgets.QTreeWidgetItem( self.apps )
@@ -198,5 +205,12 @@ tr_file = "appinstall_" + locale.getlocale()[0].split( '_' )[0]
 translator.load( tr_file )
 app.installTranslator(translator)
 
+# Initialize UI
+at1 = time.perf_counter()
 window = Ui() # Create an instance of our class
-app.exec_() # Start the application
+at2 = time.perf_counter()
+#print("translator: %0.4f" % (at1-at0))
+#print("ui: %0.4f" % (at2-at1))
+
+# Start the application
+sys.exit( app.exec_() )
