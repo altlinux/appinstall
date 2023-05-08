@@ -36,7 +36,7 @@ install -pD -m640 %name.pamd %buildroot%_sysconfdir/pam.d/%name
 install -pD -m640 %name.security %buildroot%_sysconfdir/security/console.apps/%name
 
 mkdir -p %buildroot%_datadir/%name
-cp -a %name.svg %name.ui *.qm %buildroot%_datadir/%name
+cp -a %name.svg %name.ui *.qm *.gif %buildroot%_datadir/%name
 install -Dpm 0644 %name.svg %buildroot%_pixmapsdir/%name.svg
 install -Dpm 0644 %name.desktop %buildroot%_desktopdir/%name.desktop
 

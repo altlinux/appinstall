@@ -18,6 +18,8 @@
 # Place - Suite 330, Boston, MA  02111-1307, USA.           
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5.QtGui import QMovie
+from PyQt5.QtCore import QTimer, QObject, QThread, pyqtSignal
 import locale
 import os
 import sys
@@ -28,6 +30,53 @@ import time
 data_dir = "/usr/share/appinstall"
 allowed_list_dir = "/etc/appinstall/allow.d"
 at0 = time.perf_counter()
+
+class LoadingSplash(QtWidgets.QWidget):
+    """Class for loading picture"""
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+
+        self.moveToCenter()
+
+        self.load_animation = QtWidgets.QLabel(self)
+        self.movie = QMovie("loading.gif")
+        self.load_animation.setMovie(self.movie)
+
+        self.startAnimation()
+
+    def moveToCenter(self):
+        self.setFixedSize(32, 32)
+        w = self.parent.frameGeometry().width()
+        h = self.parent.frameGeometry().height()
+        self.move(int(w/2) - 16, int(h/2) - 16)
+
+    def startAnimation(self):
+        self.movie.start()
+        self.show()
+
+    def stopAnimation(self):
+        self.movie.stop()
+        self.hide()
+
+class Worker(QObject):
+    """Class for long-time loading process"""
+    finished = pyqtSignal()
+    progress = pyqtSignal(int)
+
+    def __init__(self, window):
+        super().__init__()
+        self.w = window
+
+    def run(self):
+        """Long-running task."""
+        self.w.getApplications()
+        self.finished.emit()
+
+    def complete(self):
+        """Restore cursor"""
+        self.w.loading_splash.stopAnimation()
+        QtWidgets.QApplication.restoreOverrideCursor()
 
 class Ui(QtWidgets.QWidget):
     list = {}
@@ -42,9 +91,6 @@ class Ui(QtWidgets.QWidget):
         # Load UI from file
         uic.loadUi('appinstall.ui', self) # Load the .ui file
 
-        # Fill applications list
-        self.getApplications()
-
         # UI tuning
         self.apps.headerItem().setText(0, "")
         self.apps.setColumnWidth(0, 16)
@@ -58,8 +104,33 @@ class Ui(QtWidgets.QWidget):
         self.actionButton.clicked.connect( self.onInstall )
         self.closeButton.clicked.connect( self.onClose )
 
+        # Loading animation
+        self.loading_splash = LoadingSplash(self)
+        self.loadData()
+
         # Show window
         self.show()
+
+    def resizeEvent(self, event):
+        self.loading_splash.moveToCenter()
+        return super().resizeEvent(event)
+
+    def loadData(self):
+        self.thread = QThread()
+        self.worker = Worker(self)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+
+        QtWidgets.QApplication.setOverrideCursor( QtCore.Qt.WaitCursor )
+        self.thread.start()
+
+        # Final resets
+        self.thread.finished.connect(
+            lambda: self.worker.complete()
+        )
 
     def getApplicationsInstalled(self):
         """Get installed application from epm play --list"""
