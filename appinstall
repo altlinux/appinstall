@@ -26,11 +26,13 @@ import re
 import time
 
 data_dir = "/usr/share/appinstall"
+allowed_list_dir = "/etc/appinstall/allow.d"
 at0 = time.perf_counter()
 
 class Ui(QtWidgets.QWidget):
     list = {}
     installed = []
+    allowed = []
     proc = None
     unprocessed_string = ''
 
@@ -65,10 +67,20 @@ class Ui(QtWidgets.QWidget):
         self.installed = [ x.decode().rstrip() for x in out.stdout.readlines() ]
         #print("Installed:", self.installed )
 
+    def getAllowedApplications(self):
+        self.allowed = []
+        for r, d, f in os.walk( allowed_list_dir ):
+            for file in f:
+                if file.endswith( ".list" ):
+                    with open( os.path.join( allowed_list_dir, file ) ) as fc:
+                        self.allowed.extend( [ x.rstrip() for x in fc.readlines() ] )
+        #print("Allowed:", self.allowed )
+
     def getApplications(self):
         """Get application list from epm play"""
         t0 = time.perf_counter()
         self.getApplicationsInstalled()
+        self.getAllowedApplications()
         t1 = time.perf_counter()
         out = subprocess.Popen( [ "epm", "play", "--list-all" ], stdout=subprocess.PIPE)
         for l in out.stdout.readlines():
@@ -80,6 +92,10 @@ class Ui(QtWidgets.QWidget):
                 # Hack for wrong exit code of install glusterfs7 (see https://bugzilla.altlinux.org/show_bug.cgi?id=41429)
                 # Exclude glusterfs7 from application list
                 if name == 'glusterfs7':
+                    continue
+
+                # Filter out not allowed applications (if allowed application list is not empty)
+                if len( self.allowed ) > 0 and name not in self.allowed:
                     continue
 
                 self.list[ name ] = [ name in self.installed, self.tr( d.group( 2 ) ) ]
