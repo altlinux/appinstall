@@ -95,7 +95,7 @@ class Ui(QtWidgets.QWidget):
             #print( i, self.list[ i ][0] )
             child = QtWidgets.QTreeWidgetItem( self.apps )
             if self.list[ i ][0]:
-                child.setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
+                child.setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_ArrowDown ))
                 child.setData( 0, 3, True )
             else:
                 child.setData( 0, 3, False )
@@ -178,7 +178,7 @@ class Ui(QtWidgets.QWidget):
             if installed:
                 selected[0].setIcon( 0, QtGui.QIcon() )
             else:
-                selected[0].setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_DialogApplyButton ))
+                selected[0].setIcon( 0, self.style().standardIcon( QtWidgets.QStyle.SP_ArrowDown ))
             self.onSelectionChange( selected[0], None )
         self.proc = None
     
